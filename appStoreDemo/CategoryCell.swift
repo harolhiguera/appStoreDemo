@@ -13,6 +13,15 @@ class CategoryCell: UICollectionViewCell, UICollectionViewDataSource, UICollecti
     
     private let cellId = "appId"
     
+    var appCategory: AppCategory?{
+        didSet{
+            if let name = appCategory?.name{
+                categoryLabel.text = name
+            }
+        }
+    }
+    
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         setupViews()
@@ -79,13 +88,17 @@ class CategoryCell: UICollectionViewCell, UICollectionViewDataSource, UICollecti
     // MARK: UICollectionViewDelegate delegate functions
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 5
+        if let count = appCategory?.apps?.count{
+            return count
+        }
+        return 0
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        return collectionView.dequeueReusableCell(withReuseIdentifier: cellId, for: indexPath)
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellId, for: indexPath) as! AppCell
+        cell.app = appCategory?.apps?[indexPath.item]
+        return cell
     }
-    
     
     // MARK: UICollectionViewDataSource delegate functions
     
@@ -96,7 +109,6 @@ class CategoryCell: UICollectionViewCell, UICollectionViewDataSource, UICollecti
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets{
-        
         return UIEdgeInsets(top: 0, left: 14, bottom: 0, right: 14)
     }
     
@@ -104,10 +116,32 @@ class CategoryCell: UICollectionViewCell, UICollectionViewDataSource, UICollecti
     // MARK: Cell for each app!!
     
     class AppCell: UICollectionViewCell{
+        
         override init(frame: CGRect) {
             super.init(frame: frame)
             setupViews()
         }
+        
+        var app: App?{
+            didSet{
+                if let name = app?.name{
+                     nameLabel.text = name
+                }
+                if let category = app?.category{
+                    categoryLabel.text = category
+                }
+                if let price = app?.price{
+                    priceLabel.text = "$\(price)"
+                }else{
+                    priceLabel.text = ""
+                }
+                if let image = app?.imageName{
+                    imageView.image = UIImage(named: image)
+                }
+                
+            }
+        }
+        
         
         required init?(coder aDecoder: NSCoder) {
             fatalError("init(coder:) has not been implemented")

@@ -11,11 +11,14 @@ import UIKit
 class FeatureAppsController: UICollectionViewController, UICollectionViewDelegateFlowLayout {
     
     private let cellId = "cellId"
+    
+    var appCategory: [AppCategory]?
+    
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
-    
+        
+        appCategory = AppCategory.sampleAppCategoriies()
         collectionView?.backgroundColor = UIColor.white
         collectionView?.register(CategoryCell.self, forCellWithReuseIdentifier: cellId)
     }
@@ -26,11 +29,17 @@ class FeatureAppsController: UICollectionViewController, UICollectionViewDelegat
         
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellId, for: indexPath) as! CategoryCell
         
+        cell.appCategory = appCategory?[indexPath.item]
+        
         return cell
     }
 
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 3
+        if let count = appCategory?.count{
+            return count
+        }else{
+            return 0
+        }
     }
     
 
