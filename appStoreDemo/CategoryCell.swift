@@ -22,8 +22,15 @@ class CategoryCell: UICollectionViewCell, UICollectionViewDataSource, UICollecti
         fatalError("init(coder:) has not been implemented")
     }
     
-    
-    // ITEM 1: Collection View
+    // ITEM 1: Category Label
+    let categoryLabel: UILabel = {
+        let label = UILabel()
+        label.text = "Best new apps"
+        label.font = UIFont.systemFont(ofSize: 16)
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
+    }()
+    // ITEM 2: Collection View
     let appsCollectionView: UICollectionView = {
     
         let layout = UICollectionViewFlowLayout()
@@ -34,7 +41,7 @@ class CategoryCell: UICollectionViewCell, UICollectionViewDataSource, UICollecti
     
         return collectionView
     }()
-    // ITEM 2: Divisor
+    // ITEM 3: Divisor
     let divisor: UIView = {
    
         let view = UIView()
@@ -50,17 +57,20 @@ class CategoryCell: UICollectionViewCell, UICollectionViewDataSource, UICollecti
         backgroundColor = UIColor.clear
         addSubview(appsCollectionView)
         addSubview(divisor)
+        addSubview(categoryLabel)
      
         appsCollectionView.dataSource = self
         appsCollectionView.delegate = self
         
         appsCollectionView.register(AppCell.self, forCellWithReuseIdentifier: cellId)
         
+        addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:|-14-[v0]|", options: NSLayoutFormatOptions(), metrics: nil, views: ["v0": categoryLabel]))
+        
         addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:|[v0]|", options: NSLayoutFormatOptions(), metrics: nil, views: ["v0": appsCollectionView]))
         
         addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:|-14-[v0]|", options: NSLayoutFormatOptions(), metrics: nil, views: ["v0": divisor]))
         
-        addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:|[v0][v1(0.5)]|", options: NSLayoutFormatOptions(), metrics: nil, views: ["v0": appsCollectionView, "v1": divisor]))
+        addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:|[categoryLabel(30)][v0][v1(0.5)]|", options: NSLayoutFormatOptions(), metrics: nil, views: ["categoryLabel": categoryLabel, "v0": appsCollectionView, "v1": divisor]))
         
     }
     
@@ -82,7 +92,7 @@ class CategoryCell: UICollectionViewCell, UICollectionViewDataSource, UICollecti
     // MARK: UICollectionViewFlowLayout delegate functions
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: 100, height: frame.height)
+        return CGSize(width: 100, height: frame.height - 32)
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets{
