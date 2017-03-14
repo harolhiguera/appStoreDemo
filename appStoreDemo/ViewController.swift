@@ -17,12 +17,14 @@ class FeatureAppsController: UICollectionViewController, UICollectionViewDelegat
         // Do any additional setup after loading the view, typically from a nib.
     
         collectionView?.backgroundColor = UIColor.white
-        collectionView?.register(CategoriesCell.self, forCellWithReuseIdentifier: cellId)
+        collectionView?.register(CategoryCell.self, forCellWithReuseIdentifier: cellId)
     }
+    
+    // MARK: UICollectionViewController delegates
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellId, for: indexPath) as! CategoriesCell
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellId, for: indexPath) as! CategoryCell
         
         return cell
     }
@@ -31,30 +33,11 @@ class FeatureAppsController: UICollectionViewController, UICollectionViewDelegat
         return 3
     }
     
-    
-    
+
+    // MARK: UICollectionViewDelegateFlowLayout delegates
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         return CGSize(width: view.frame.width, height: 150)
-    }
-    
-    
-    
-    class CategoriesCell: UICollectionViewCell{
-    
-        override init(frame: CGRect) {
-            super.init(frame: frame)
-            setupViews()
-        }
-        
-        required init?(coder aDecoder: NSCoder) {
-            fatalError("init(coder:) has not been implemented")
-        }
-        
-        func setupViews(){
-            backgroundColor = UIColor.black
-        }
-        
     }
     
     
