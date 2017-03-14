@@ -22,6 +22,8 @@ class CategoryCell: UICollectionViewCell, UICollectionViewDataSource, UICollecti
         fatalError("init(coder:) has not been implemented")
     }
     
+    
+    // ITEM 1: Collection View
     let appsCollectionView: UICollectionView = {
     
         let layout = UICollectionViewFlowLayout()
@@ -32,12 +34,22 @@ class CategoryCell: UICollectionViewCell, UICollectionViewDataSource, UICollecti
     
         return collectionView
     }()
+    // ITEM 2: Divisor
+    let divisor: UIView = {
+   
+        let view = UIView()
+        view.backgroundColor = UIColor(white: 0.4, alpha: 0.4)
+        view.translatesAutoresizingMaskIntoConstraints = false
+        
+        return view
+    }()
     
     
     
     func setupViews(){
         backgroundColor = UIColor.clear
         addSubview(appsCollectionView)
+        addSubview(divisor)
      
         appsCollectionView.dataSource = self
         appsCollectionView.delegate = self
@@ -46,7 +58,9 @@ class CategoryCell: UICollectionViewCell, UICollectionViewDataSource, UICollecti
         
         addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:|[v0]|", options: NSLayoutFormatOptions(), metrics: nil, views: ["v0": appsCollectionView]))
         
-        addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:|[v0]|", options: NSLayoutFormatOptions(), metrics: nil, views: ["v0": appsCollectionView]))
+        addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:|-14-[v0]|", options: NSLayoutFormatOptions(), metrics: nil, views: ["v0": divisor]))
+        
+        addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:|[v0][v1(0.5)]|", options: NSLayoutFormatOptions(), metrics: nil, views: ["v0": appsCollectionView, "v1": divisor]))
         
     }
     
