@@ -20,7 +20,7 @@ class FeatureAppsController: UICollectionViewController, UICollectionViewDelegat
         collectionView?.register(CategoryCell.self, forCellWithReuseIdentifier: cellId)
     }
     
-    // MARK: UICollectionViewController delegates
+    // MARK: UICollectionViewDelegate delegate
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
@@ -34,10 +34,10 @@ class FeatureAppsController: UICollectionViewController, UICollectionViewDelegat
     }
     
 
-    // MARK: UICollectionViewDelegateFlowLayout delegates
+    // MARK: UICollectionViewDelegateFlowLayout delegate functions
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: view.frame.width, height: 150)
+        return CGSize(width: view.frame.width, height: 230)
     }
     
     
